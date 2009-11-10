@@ -25,7 +25,7 @@ There are 3 steps to getting everything working:
 
 1. [Download the Google Closure Compiler](http://closure-compiler.googlecode.com/files/compiler-latest.zip).
 
-2. Unzip the Google Closure Compiler and copy the `.jar` file from the `***` folder to a location of your choosing (make a note of where you saved it).
+2. Unzip the Google Closure Compiler and copy the `.jar` file from the `compiler-latest` folder to a location of your choosing (make a note of where you saved it).
 
 3. Open the `Preferences...` item in this bundle and replace the text `/absolute/path/to/google_closure_compiler.jar` with the actual path to your `.jar` file. __It must be an absolute path, `~/` won't work__.
 
