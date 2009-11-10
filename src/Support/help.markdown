@@ -3,7 +3,7 @@ The Google Closure Compiler Bundle enables easy validation and compression of Ja
 
 # Setup
 
-There are *** steps to getting everything working:
+There are 3 steps to getting everything working:
 
 1. [Download the Google Closure Compiler](http://closure-compiler.googlecode.com/files/compiler-latest.zip).
 
