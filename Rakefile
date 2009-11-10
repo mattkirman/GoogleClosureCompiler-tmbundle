@@ -149,7 +149,7 @@ task :build do
 	# Patch version info
 	patch(File.join(TMP_DIR, 'Support', 'help.markdown'), [['##VERSION##', $version], ['##REVISION##', $short_revision]])
 	
-	puts cmd_color("Tidying up patch files in build...")
+	puts cmd_color("Tidying up patch files...")
 	`rm -rf "#{File.join(TMP_DIR, '__Patches')}"`
 	
 	puts "#{cmd_color("Building")} \"#{file_color(BUNDLE)}\"..."
@@ -177,7 +177,7 @@ task :install do
 		die("Error installing bundle") unless sys("cp -r \"#{BUNDLE}\" \"#{pristine}\" && mv \"#{BUNDLE}\" \"#{dest}\"")
 		
 		Rake::Task["clobber:build"].execute
-		puts "#{blue('Done!')} You may now have to restart TextMate for changes to take effect"
+		puts "#{blue('Done!')} You may now have to reload TextMate bundles for changes to take effect"
 	end
 end
 
