@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Preferences...</string>
+	<key>settings</key>
+	<dict>
+		<key>shellVariables</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>TM_GOOGLE_CLOSURE_COMPILER_LOCATION</string>
+				<key>value</key>
+				<string>/usr/local/bin/closure-compiler</string>
+			</dict>
+		</array>
+	</dict>
+	<key>uuid</key>
+	<string>F79405F3-D296-424F-8EE4-079D11F9BB6D</string>
+</dict>
+</plist>
