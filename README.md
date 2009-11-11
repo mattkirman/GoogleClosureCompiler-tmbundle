@@ -3,20 +3,7 @@ The Google Closure Compiler Bundle enables easy validation and compression of Ja
 
 # Installation
 
-## Installing From a Release (recommended)
-
-Simply download a copy of the bundle from  <http://github.com/mattkirman/GoogleClosureCompiler-tmbundle/downloads> and double-click to install into TextMate.
-
-## Installing From Source
-
-If really you want to create your own bundle from source you can. Make sure you have [Git](http://git-scm.com/) and [Rake](http://rake.rubyforge.org/) installed correctly on your machine. To get the source and build your bundle simply:
-
-    $ git clone git://github.com/mattkirman/GoogleClosureCompiler-tmbundle.git
-    $ cd GoogleClosureCompiler-tmbundle
-    $ rake
-    $ rake install
-    
-Rake will install your bundle into `~/Library/Application Support/TextMate/Bundles/Google Closure Compiler.tmbundle`. If you want to install the bundle yourself *do not* run `rake install`. Instead, open the `build` folder in Finder and double-click the bundle.
+Simply grab a copy of the bundle from  <http://github.com/mattkirman/GoogleClosureCompiler-tmbundle/downloads>, extract and double-click to install. You may have to rename the extracted file/folder to 'Google Closure Compiler.tmbundle' otherwise OS X will not treat is as a TextMate bundle.
 
 
 # Setup
