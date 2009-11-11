@@ -7,7 +7,7 @@ There are 3 steps to getting everything working:
 
 1. [Download the Google Closure Compiler](http://closure-compiler.googlecode.com/files/compiler-latest.zip).
 
-2. Unzip the Google Closure Compiler and copy the `.jar` file from the `***` folder to a location of your choosing (make a note of where you saved it).
+2. Unzip the Google Closure Compiler and copy the `.jar` file from the `compiler-latest` folder to a location of your choosing (make a note of where you saved it).
 
 3. Open the `Preferences...` item in this bundle and replace the text `/absolute/path/to/google_closure_compiler.jar` with the actual path to your `.jar` file. __It must be an absolute path, `~/` won't work__.
 
@@ -37,7 +37,4 @@ By default the bundle will compile your JavaScript using the `SIMPLE_OPTIMIZATIO
 Author: Matt Kirman <<http://twitter.com/mattkirman>>  
 
 Source: <http://github.com/mattkirman/GoogleClosureCompiler-tmbundle>  
-Downloads: <http://github.com/mattkirman/GoogleClosureCompiler-tmbundle/downloads>  
-
-Version: 0.1.0  
-Revision: ae8dec96
+Downloads: <http://github.com/mattkirman/GoogleClosureCompiler-tmbundle/downloads>

@@ -12,7 +12,7 @@
 				<key>name</key>
 				<string>TM_GOOGLE_CLOSURE_COMPILER_LOCATION</string>
 				<key>value</key>
-				<string>/usr/local/bin/closure-compiler</string>
+				<string>/absolute/path/to/closure-compiler.jar</string>
 			</dict>
 			<dict>
 				<key>name</key>
