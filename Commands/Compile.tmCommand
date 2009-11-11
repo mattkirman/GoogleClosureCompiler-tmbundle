@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>saveModifiedFiles</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby
+
+require ENV["TM_BUNDLE_SUPPORT"] + '/lib/compile.rb'</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>@G</string>
+	<key>name</key>
+	<string>Compile</string>
+	<key>output</key>
+	<string>showAsTooltip</string>
+	<key>scope</key>
+	<string>source.js</string>
+	<key>uuid</key>
+	<string>3A96669A-F747-46DD-ABD2-FF0E6CC80F0D</string>
+</dict>
+</plist>
