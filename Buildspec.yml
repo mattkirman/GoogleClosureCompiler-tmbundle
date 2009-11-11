@@ -1,0 +1,6 @@
+---
+    :patches:
+        -
+            file: [Commands, Compile.tmCommand]
+            patch: [Commands, compile.rb]
+            flag: '##COMPILE##'
