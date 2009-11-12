@@ -17,7 +17,14 @@ begin
 	begin
 		compiler = ENV["TM_GOOGLE_CLOSURE_COMPILER_LOCATION"]
 	rescue Exception => e
-		print "Unable to find path for your Google Closure Compiler in 'Preferences...'. Please refer to 'Help' in the bundle."
+		print "Unable to find path for your Google Closure Compiler in 'Preferences...'. Please refer to 'Help' in the bundle. "
+		exit
+	end
+	
+	
+	# check to make sure that we've set an absolute path to the compiler
+	if compiler == '/absolute/path/to/google_closure_compiler.jar' || compiler[0,1] == '~' then
+		print "Please set the absolute path to your copy of Google Closure Compiler in 'Preferences...'. "
 		exit
 	end
 	
