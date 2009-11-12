@@ -1,8 +1,5 @@
 #!/usr/bin/env ruby
 
-require ENV["TM_SUPPORT_PATH"] + "/lib/tm/executor"
-require ENV["TM_SUPPORT_PATH"] + "/lib/tm/save_current_document"
-
 begin
 	selected_files_string = ENV["TM_SELECTED_FILES"]
 rescue Exception => e
@@ -52,7 +49,13 @@ result = system(cmd)
 
 
 if result == true then
-	print "Your files were compiled successfully to: #{output}"
+	if selected_files.length == 1 then
+		status_text = " was"
+	else
+		status_text = "s were"
+	end
+	
+	print "Your file#{status_text} compiled successfully to: #{output}"
 else
 	print result
 end
