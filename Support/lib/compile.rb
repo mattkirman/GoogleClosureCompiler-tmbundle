@@ -26,36 +26,32 @@ end
 
 
 level = ENV["TM_GOOGLE_CLOSURE_COMPILER_OPTIMIZATION"] || 'SIMPLE_OPTIMIZATION'
+compilation_level = ''
 if level == 'ADVANCED_OPTIMIZATIONS' then
 	compilation_level = ' --compilation_level ADVANCED_OPTIMIZATIONS'
-else
-	compilation_level = ''
 end
 
 
 files = ''
 selected_files.each { |f| files << " --js \"#{f}\"" }
-
+output_file = "\"#{ENV["TM_DIRECTORY"]}/compiled.js\""
 if selected_files.length == 1 then
 	file = selected_files[0].gsub('.js', '')
-	output = "\"#{file}-compiled.js\""
-else
-	output = "\"#{ENV["TM_DIRECTORY"]}/compiled.js\""
+	output_file = "\"#{file}-compiled.js\""
 end
 
 
-cmd = "java -jar #{compiler}#{compilation_level}#{files} --js_output_file #{output}"
+cmd = "java -jar #{compiler}#{compilation_level}#{files} --js_output_file #{output_file}"
 result = system(cmd)
 
 
 if result == true then
+	pluralisation = "s were"
 	if selected_files.length == 1 then
-		status_text = " was"
-	else
-		status_text = "s were"
+		pluralisation = " was"
 	end
 	
-	print "Your file#{status_text} compiled successfully to: #{output}"
+	print "Your file#{pluralisation} compiled successfully to: #{output_file}"
 else
 	print result
 end
