@@ -1,6 +1,13 @@
+0.2.0 - November 12, 2009
+            * [Bugfix]  Fixed the "undefined method '[]' for nil:NilClass" error.
+            * [Bugfix]  The bundle will only run if the "TM_GOOGLE_CLOSURE_COMPILER_LOCATION" is not set to the
+                        -   default value and is an absolute path.
+            * [Bugfix]  Status messages can now show plurals.
+            * [Feature] Progress is now displayed whilst the Compiler is, erm, compiling in the background.
+            * Code comments are now much more verbose to help anyone who wants to fork/contribute to the bundle.
+
 0.1.1 - November 11, 2009
-            * Recreated the Git repository to take advantage of the GetBundles
-              GitHub distribution support
+            * Recreated the Git repository to take advantage of the GetBundles GitHub distribution support.
 
 0.1.0 - November 10, 2009
-            * Initial public release
+            * Initial public release.
