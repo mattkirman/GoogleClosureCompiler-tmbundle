@@ -1,62 +1,110 @@
 #!/usr/bin/env ruby
 
+require ENV['TM_SUPPORT_PATH'] + '/lib/ui'
 require ENV['TM_SUPPORT_PATH'] + '/lib/progress'
 
-begin
-	selected_files_string = ENV["TM_SELECTED_FILES"]
-	
-	# Strip the start and end quotes, then split the string into files
-	selected_files = selected_files_string[1..-2].split("' '")
 
-	if selected_files.length == 0 then
-		print "No files selected"
-		exit
-	end
-
-
-	begin
-		compiler = ENV["TM_GOOGLE_CLOSURE_COMPILER_LOCATION"]
-	rescue Exception => e
-		print "Unable to find path for your Google Closure Compiler in 'Preferences...'. Please refer to 'Help' in the bundle."
-		exit
-	end
-	
-	
-	TextMate.call_with_progress(:title => 'Google Closure Compiler', :summary => 'Starting up...') do |dialog|
-		level = ENV["TM_GOOGLE_CLOSURE_COMPILER_OPTIMIZATION"] || 'SIMPLE_OPTIMIZATION'
-		compilation_level = ''
-		if level == 'ADVANCED_OPTIMIZATIONS' then
-			compilation_level = ' --compilation_level ADVANCED_OPTIMIZATIONS'
-		end
-
-
-		files = ''
-		selected_files.each { |f| files << " --js \"#{f}\"" }
-		output_file = "\"#{ENV["TM_DIRECTORY"]}/compiled.js\""
-		if selected_files.length == 1 then
-			file = selected_files[0].gsub('.js', '')
-			output_file = "\"#{file}-compiled.js\""
-		end
-
-
-		cmd = "java -jar #{compiler}#{compilation_level}#{files} --js_output_file #{output_file}"
-		dialog.parameters = {'summary' => 'Compiling...'}
-		result = system(cmd)
-
-
-		if result == true then
-			pluralisation = "s were"
-			if selected_files.length == 1 then
-				pluralisation = " was"
-			end
-
-			print "Your file#{pluralisation} compiled successfully to: #{output_file}"
-		else
-			print result
-		end
-	end
-	
-rescue Exception => e
-	print "No files selected"
+# Our wrapper for the TextMate critical alert dialog. As this is only called when
+# we have suffered from a critical/fatal error we must then exit the program.
+def criticalError(message)
+	TextMate::UI.alert(:critical, "Google Closure Compiler Bundle", message)
 	exit
 end
+
+
+# Check to make sure that we have actually selected some files
+if ENV["TM_SELECTED_FILES"] == nil then
+	criticalError("Please select some files to compile.")
+end
+
+# Check that the compiler location is set
+if ENV["TM_GOOGLE_CLOSURE_COMPILER_LOCATION"] == nil then
+	criticalError("Unable to find a path for the Google Closure Compiler in 'Preferences...'.
+
+Please refer to 'Help' in the bundle for more information.")
+else
+	compiler = ENV["TM_GOOGLE_CLOSURE_COMPILER_LOCATION"]
+	
+	# Check to make sure that we've set an absolute path to the compiler
+	if compiler == '/absolute/path/to/google_closure_compiler.jar' || compiler[0,1] == '~' then
+		criticalError("Please set the absolute path to your copy of Google Closure Compiler in 'Preferences...'.")
+	end
+end
+
+
+selected_files_string = ENV["TM_SELECTED_FILES"]
+# Strip the start and end quotes, then split the string into files
+selected_files = selected_files_string[1..-2].split("' '")
+if selected_files.length == 0 then
+	criticalError("Please select some files to compile.")
+end
+
+
+# Create a standard progress dialog
+TextMate.call_with_progress(:title => 'Google Closure Compiler', :summary => 'Starting up...') do |dialog|
+	# If we are compiling with 'ADVANCED_OPTIMIZATIONS' then create the '--compilation_level' flag.
+	# Note: '--compilation_level' only takes 'ADVANCED_OPTIMIZATIONS' as an argument.
+	level = ENV["TM_GOOGLE_CLOSURE_COMPILER_OPTIMIZATION"] || 'SIMPLE_OPTIMIZATION'
+	compilation_level = ''
+	if level == 'ADVANCED_OPTIMIZATIONS' then
+		compilation_level = ' --compilation_level ADVANCED_OPTIMIZATIONS'
+	end
+
+	
+	# We need to tell the compiler which files to compile. At the moment we only
+	# support the compilation of either single->single or multiple->single files.
+	files = ''
+	selected_files.each { |f| files << " --js \"#{f}\"" }
+	# We need to tell the compiler where to save the compiled file to as by default
+	# it just prints to STDOUT. If we are compiling a single file then we will save
+	# to #{filename}-compiled.js, multiple files simply go to compiled.js.
+	output_file = "\"#{ENV["TM_DIRECTORY"]}/compiled.js\""
+	if selected_files.length == 1 then
+		file = selected_files[0].gsub('.js', '')
+		output_file = "\"#{file}-compiled.js\""
+	end
+	
+	
+	# Create the call to the compiler with our options
+	cmd = "java -jar #{compiler}#{compilation_level}#{files} --js_output_file #{output_file}"
+	
+	
+	# Set up the progress dialog details
+	details = ''
+	if compilation_level != '' then
+		details << "--compilation_level ADVANCED_OPTIMIZATIONS\n"
+	end
+	
+	details << "--js_output_file"
+	if output_file.length > 35 then	
+		details << " #{output_file[0,17]}...#{output_file[-17,17]}"
+	else
+		details << output_file
+	end
+	
+	
+	# Tell the user that we're now compiling their JavaScript
+	dialog.parameters = {'summary' => 'Compiling...', 'details' => details}
+	
+	# Run the compiler command
+	result = system(cmd)
+	
+	
+	# If the compiler ran successfully then we ought to tell the user...
+	if result == true then
+		pluralisation = "s were"
+		if selected_files.length == 1 then
+			pluralisation = " was"
+		end
+		
+		# Let the user now that we've compiled their files successfully and where
+		# the compiled file is.
+		print "Your file#{pluralisation} compiled successfully to:
+#{ output_file }"
+	end
+end
+
+# Wha? That's it?
+# 
+# We don't need to explicity print any errors generated by the compiler as TextMate
+# automatically displays them in the tooltip. Awesome.
