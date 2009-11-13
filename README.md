@@ -3,6 +3,12 @@ The Google Closure Compiler Bundle enables easy validation and compression of Ja
 
 # Installation
 
+## Using the GetBundles bundle
+
+This bundle should be available to install via the GetBundles bundle. Just look for the 'Google Closure Compiler'.
+
+## From a source archive
+
 Simply grab a copy of the bundle from  <http://github.com/mattkirman/GoogleClosureCompiler-tmbundle/downloads>, extract and double-click to install. You may have to rename the extracted file/folder to 'Google Closure Compiler.tmbundle' otherwise OS X will not treat is as a TextMate bundle.
 
 
